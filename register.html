@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CodeRudra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .form-input {
+            @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500;
+        }
+        .btn-primary {
+            @apply w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out;
+        }
+        .alert {
+            @apply p-4 rounded-md text-sm font-medium mb-4;
+        }
+        .alert-error {
+            @apply bg-red-50 text-red-700 border border-red-200;
+        }
+        .alert-success {
+            @apply bg-green-50 text-green-700 border border-green-200;
+        }
+        .alert-info {
+            @apply bg-blue-50 text-blue-700 border border-blue-200;
+        }
+        .password-strength {
+            @apply text-xs mt-1 space-y-1;
+        }
+        .strength-item {
+            @apply flex items-center space-x-2;
+        }
+        .strength-check {
+            @apply w-3 h-3 rounded-full border;
+        }
+        .strength-check.valid {
+            @apply bg-green-500 border-green-500;
+        }
+        .strength-check.invalid {
+            @apply bg-gray-200 border-gray-300;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-900">CodeRudra</h1>
+            <h2 class="mt-6 text-2xl font-semibold text-gray-900">Create your account</h2>
+            <p class="mt-2 text-sm text-gray-600">
+                Or
+                <a href="login.html" class="font-medium text-indigo-600 hover:text-indigo-500">
+                    sign in to your existing account
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <div id="alert" class="hidden"></div>
+
+            <form id="registerForm" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">
+                        Full Name
+                    </label>
+                    <div class="mt-1">
+                        <input id="name" name="name" type="text" autocomplete="name" required
+                               placeholder="Enter your full name"
+                               class="form-input">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">
+                        Email address
+                    </label>
+                    <div class="mt-1">
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                               placeholder="Enter your email"
+                               class="form-input">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">
+                        Password
+                    </label>
+                    <div class="mt-1">
+                        <input id="password" name="password" type="password" autocomplete="new-password" required
+                               placeholder="Create a strong password"
+                               class="form-input">
+                    </div>
+                    <div id="passwordStrength" class="password-strength hidden">
+                        <div class="strength-item">
+                            <div id="lengthCheck" class="strength-check invalid"></div>
+                            <span class="text-gray-600">At least 6 characters</span>
+                        </div>
+                        <div class="strength-item">
+                            <div id="lowercaseCheck" class="strength-check invalid"></div>
+                            <span class="text-gray-600">One lowercase letter</span>
+                        </div>
+                        <div class="strength-item">
+                            <div id="uppercaseCheck" class="strength-check invalid"></div>
+                            <span class="text-gray-600">One uppercase letter</span>
+                        </div>
+                        <div class="strength-item">
+                            <div id="numberCheck" class="strength-check invalid"></div>
+                            <span class="text-gray-600">One number</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">
+                        Confirm Password
+                    </label>
+                    <div class="mt-1">
+                        <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required
+                               placeholder="Confirm your password"
+                               class="form-input">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700">
+                        I am a
+                    </label>
+                    <div class="mt-1">
+                        <select id="role" name="role" class="form-input">
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <input id="terms" name="terms" type="checkbox" required
+                           class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <label for="terms" class="ml-2 block text-sm text-gray-900">
+                        I agree to the
+                        <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms of Service</a>
+                        and
+                        <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <div>
+                    <button type="submit" id="registerBtn" class="btn-primary">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300" />
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Features</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-xs text-gray-500 space-y-1">
+                    <p>✅ Password hashing with bcrypt</p>
+                    <p>✅ JWT authentication</p>
+                    <p>✅ Rate limiting protection</p>
+                    <p>✅ Email validation</p>
+                    <p>✅ MongoDB integration</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+
+        // DOM Elements
+        const registerForm = document.getElementById('registerForm');
+        const registerBtn = document.getElementById('registerBtn');
+        const alertDiv = document.getElementById('alert');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordStrengthDiv = document.getElementById('passwordStrength');
+
+        // Password strength indicators
+        const lengthCheck = document.getElementById('lengthCheck');
+        const lowercaseCheck = document.getElementById('lowercaseCheck');
+        const uppercaseCheck = document.getElementById('uppercaseCheck');
+        const numberCheck = document.getElementById('numberCheck');
+
+        // Show alert function
+        function showAlert(message, type = 'info') {
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            alertDiv.classList.remove('hidden');
+        }
+
+        // Hide alert function
+        function hideAlert() {
+            alertDiv.classList.add('hidden');
+        }
+
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            const checks = {
+                length: password.length >= 6,
+                lowercase: /[a-z]/.test(password),
+                uppercase: /[A-Z]/.test(password),
+                number: /\d/.test(password)
+            };
+
+            // Update visual indicators
+            lengthCheck.className = `strength-check ${checks.length ? 'valid' : 'invalid'}`;
+            lowercaseCheck.className = `strength-check ${checks.lowercase ? 'valid' : 'invalid'}`;
+            uppercaseCheck.className = `strength-check ${checks.uppercase ? 'valid' : 'invalid'}`;
+            numberCheck.className = `strength-check ${checks.number ? 'valid' : 'invalid'}`;
+
+            return Object.values(checks).every(check => check);
+        }
+
+        // Password input event listener
+        passwordInput.addEventListener('input', (e) => {
+            const password = e.target.value;
+            if (password.length > 0) {
+                passwordStrengthDiv.classList.remove('hidden');
+                checkPasswordStrength(password);
+            } else {
+                passwordStrengthDiv.classList.add('hidden');
+            }
+        });
+
+        // Register form submission
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const role = document.getElementById('role').value;
+            const terms = document.getElementById('terms').checked;
+
+            // Validation
+            if (!name || !email || !password || !confirmPassword) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match', 'error');
+                return;
+            }
+
+            if (!checkPasswordStrength(password)) {
+                showAlert('Password does not meet strength requirements', 'error');
+                return;
+            }
+
+            if (!terms) {
+                showAlert('Please accept the terms and conditions', 'error');
+                return;
+            }
+
+            // Update button state
+            registerBtn.disabled = true;
+            registerBtn.textContent = 'Creating Account...';
+            hideAlert();
+
+            try {
+                const response = await fetch(`${API_BASE}/api/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password, role })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Store token
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.data.user));
+
+                    showAlert('Account created successfully! Redirecting...', 'success');
+
+                    // Redirect after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000);
+                } else {
+                    if (data.errors && Array.isArray(data.errors)) {
+                        showAlert(data.errors.join(', '), 'error');
+                    } else {
+                        showAlert(data.message || 'Registration failed', 'error');
+                    }
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showAlert('Network error. Please try again.', 'error');
+            } finally {
+                // Reset button state
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Create Account';
+            }
+        });
+
+        // Check if already logged in
+        const token = localStorage.getItem('token');
+        if (token) {
+            showAlert('You are already logged in. Redirecting...', 'info');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
